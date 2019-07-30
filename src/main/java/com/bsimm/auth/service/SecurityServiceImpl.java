@@ -24,6 +24,7 @@ public class SecurityServiceImpl implements SecurityService{
     public String findLoggedInUsername() {
         Object userDetails = SecurityContextHolder.getContext().getAuthentication().getDetails();
         if (userDetails instanceof UserDetails) {
+        	System.out.println("Found user name::" + ((UserDetails)userDetails).getUsername());
             return ((UserDetails)userDetails).getUsername();
         }
 
@@ -39,7 +40,7 @@ public class SecurityServiceImpl implements SecurityService{
 
         if (usernamePasswordAuthenticationToken.isAuthenticated()) {
             SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
-            logger.debug(String.format("Auto login %s successfully!", username));
+            logger.info(String.format("Auto login %s successfully, with password %s!", username, password));
         }
     }
 }

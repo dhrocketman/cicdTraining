@@ -10,6 +10,8 @@ import com.bsimm.auth.repository.UserRepository;
 
 import java.util.HashSet;
 
+import javax.persistence.TypedQuery;
+
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired
@@ -28,6 +30,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findByUsername(String username) {
+    	
+    	//https://github.com/eugenp/tutorials/blob/master/software-security/sql-injection-samples/src/main/java/com/baeldung/examples/security/sql/AccountDAO.java  
         return userRepository.findByUsername(username);
     }
 }
