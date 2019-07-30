@@ -73,9 +73,7 @@ pipeline {
         			    
         			    /* For temp*/
         			    sh 'java -jar $(pwd)/hub-detect-4.4.2.jar --blackduck.hub.url=https://hubtesting.blackducksoftware.com --blackduck.api.token=MTRhYzYxYmItZWJhMS00Njg1LTgwMTMtOGIyMDQzMGE4MDQzOjE2YjhmZjNiLTY2NGYtNDAwZC04ZjUyLThlNDJmN2M0NmU2ZQ== --blackduck.hub.trust.cert=true --blackduck.hub.auto.import.cert=true | tee log.txt'
-        			    sh 'java -jar $(pwd)/SCT/Adapters/blackduck-api.jar hubtesting.blackducksoftware.com sysadmin F@w0m0! log.txt $WORKSPACE/BlackDuck-Report.json'
-        			    
-        				archiveArtifacts '**/BlackDuck-Report.json'
+        			  
                     }
                 }
             }
