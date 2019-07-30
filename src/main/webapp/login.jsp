@@ -23,8 +23,8 @@
         <div class="form-group ${error != null ? 'has-error' : ''}">
             <span>${message}</span>
             <input name="username" type="text" class="form-control" placeholder="Username"
-                   autofocus="true" autocomplete="true"/>
-            <input name="password" type="password" class="form-control" placeholder="Password" autocomplete="true"/>
+                   autofocus="true" autocomplete="on"/>
+            <input name="password" type="password" class="form-control" placeholder="Password" autocomplete="on"/>
             <span>${error}</span>
            <!--  <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> -->
 
