@@ -83,7 +83,7 @@ pipeline {
                 print 'Deploy to Tomcat'
                 unstash 'warfile'
                 sh 'sudo /opt/deployment/tomcat/apache-tomcat-8.5.28/bin/shutdown.sh'
-                sh 'sudo cp $(pwd)/target/insecure-bank.war /opt/deployment/tomcat/apache-tomcat-8.5.28/webapps'
+                sh 'sudo cp $(pwd)/target/auth-2.1.1.RELEASE.war /opt/deployment/tomcat/apache-tomcat-8.5.28/webapps'
               
                 sh 'sudo /opt/deployment/tomcat/apache-tomcat-8.5.28/bin/startup.sh'
                 sleep 45
