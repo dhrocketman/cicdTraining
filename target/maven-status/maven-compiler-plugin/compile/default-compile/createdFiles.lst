@@ -8,6 +8,7 @@ com\bsimm\auth\WebApplication.class
 com\bsimm\auth\WebSecurityConfig.class
 com\bsimm\auth\model\Role.class
 com\bsimm\auth\validator\UserValidator.class
+com\bsimm\auth\model\UserRowMapper.class
 com\bsimm\auth\repository\RoleRepository.class
 com\bsimm\auth\service\UserServiceImpl.class
 com\bsimm\auth\repository\UserRepository.class
