@@ -82,9 +82,9 @@ pipeline {
             steps {
                 print 'Deploy to Tomcat'
                 unstash 'warfile'
-                sh 'sudo /opt/deployment/tomcat/apache-tomcat-8.5.28/bin/shutdown.sh'
-                sh 'sudo cp $(pwd)/target/auth-2.1.1.RELEASE.war /opt/deployment/tomcat/apache-tomcat-8.5.28/webapps'
-              
+
+              	def image = docker.build("AppImage"+ ":${env.BUILD_ID}")
++            	def container = image.run('-p 8181:8080 --name container_' + "${env.BUILD_ID}")
                 sh 'sudo /opt/deployment/tomcat/apache-tomcat-8.5.28/bin/startup.sh'
                 sleep 45
                 print 'Application Deployed to test'
@@ -95,7 +95,7 @@ pipeline {
             steps {
                 print 'Execute DAST payload'
                 //execute Arachni
-                sh '/opt/deployment/arachni/arachni-1.5.1-0.5.12/bin/arachni --checks=csrf http://cicdtraining.cigital.com:8181/insecure-bank --report-save-path=Arachni-report.afr'
+                sh '/opt/deployment/arachni/arachni-1.5.1-0.5.12/bin/arachni --checks=csrf http://cicdtraining.cigital.com:8181 --report-save-path=Arachni-report.afr'
                 sh '/opt/deployment/arachni/arachni-1.5.1-0.5.12/bin/arachni_reporter Arachni-report.afr --report=xml:outfile=Arachni-Report.xml'
                 sleep 30
                 sh "curl -X GET --insecure --header 'Accept: application/json' --header 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJTZWVrZXIiLCJuYW1lIjoiSmVua2luc0FjY2VzcyIsInR5cGUiOiJhcGkiLCJleHAiOjE1MjAyODUzODF9.uj29Tfoio0mC7zRS0nc77HWyAPLdBdYFGARpOTWAMt4' 'https://seeker-ent.cigital.com:8481/rest/api/latest/vulnerabilities?projectKeys=default' > Seeker-Report.json"
@@ -103,26 +103,6 @@ pipeline {
                 stash includes: '**/Seeker-Report.json', name: 'SeekerReport'
             }
         }
-     
-       	stage("SonarQube Security Gate") { 
-            steps{
-                timeout(time: 1, unit: 'HOURS') { 
-                script{
-                        def scannerHome = tool name: 'SonarScanner3', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
-                        withSonarQubeEnv('DemoSonarQube') {
-                            def securityGate = waitForQualityGate() 
-                            if (securityGate.status != 'OK') {
-                                print 'Email sent'
-                                emailext subject: "FAILURE - Open Source Major Pipeline: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'", body: """<p>FAILURE: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p> <p>The job has failed. </p> <p>Check console output at "<a href="${env.BUILD_URL}">${env.JOB_NAME} [${env.BUILD_NUMBER}]</a>"</p>""", to: "skokil@cigital.com"
-                                print 'Pipeline has finished with error.'
-                                error "Pipeline aborted due to quality gate failure: ${securityGate.status}"
-                            }
-                        }    
-                }
-				} 
-			}
-		}
-
     }
     
     post {
