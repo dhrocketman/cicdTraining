@@ -80,14 +80,16 @@ pipeline {
         }      
         stage ('Test-time Deploy') {
             steps {
-                print 'Deploy to Tomcat'
-                unstash 'warfile'
-
-              	def image = docker.build("AppImage"+ ":${env.BUILD_ID}")
-+            	def container = image.run('-p 8181:8080 --name container_' + "${env.BUILD_ID}")
-                sh 'sudo /opt/deployment/tomcat/apache-tomcat-8.5.28/bin/startup.sh'
-                sleep 45
-                print 'Application Deployed to test'
+            	script {
+	                print 'Deploy to Tomcat'
+	                unstash 'warfile'
+	
+	              	def image = docker.build("AppImage"+ ":${env.BUILD_ID}")
+	+            	def container = image.run('-p 8181:8080 --name container_' + "${env.BUILD_ID}")
+	                sh 'sudo /opt/deployment/tomcat/apache-tomcat-8.5.28/bin/startup.sh'
+	                sleep 45
+	                print 'Application Deployed to test'
+                }
             }
         }
         
