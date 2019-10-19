@@ -52,9 +52,9 @@ pipeline {
                     timeout(time: 1, unit: 'HOURS') {
                         def qg = waitForQualityGate()
                         if (qg.status != 'OK') {
-                          slackSend channel: '#bsimm', color: 'danger', message: 'The security gate has failed. Please schedule deep-dive manual code review.'
-                          input message: 'Security Gate Failed. Do you want to proceed?', submitter: 'admin'
-                          //error 'The security gate failed. Breaking the CI build.'
+                          //slackSend channel: '#bsimm', color: 'danger', message: 'The security gate has failed. Please schedule deep-dive manual code review.'
+                          //input message: 'Security Gate Failed. Do you want to proceed?', submitter: 'admin'
+                          error 'The security gate failed. Breaking the CI build.'
                         }
                     }
                 }
