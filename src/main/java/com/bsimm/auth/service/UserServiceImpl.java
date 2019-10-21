@@ -13,6 +13,8 @@ import com.bsimm.auth.model.UserRowMapper;
 import com.bsimm.auth.repository.RoleRepository;
 import com.bsimm.auth.repository.UserRepository;
 
+import java.util.Base64;
+
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired
