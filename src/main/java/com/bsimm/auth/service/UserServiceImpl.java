@@ -32,7 +32,7 @@ public class UserServiceImpl implements UserService {
     	 * Instance of Base64 encoding for password. Uncomment while testing with SAST tools
     	 */
     	user.setPassword(Base64.getEncoder().encodeToString(user.getPassword().getBytes())); 
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        //user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         user.setRoles(new HashSet<>(roleRepository.findAll()));
         userRepository.save(user);
     }
