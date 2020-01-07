@@ -48,7 +48,7 @@ pipeline {
                     }
                    
                     sleep 30
-                   
+                   /*
                     timeout(time: 1, unit: 'HOURS') {
                         def qg = waitForQualityGate()
                         if (qg.status != 'OK') {
@@ -56,7 +56,7 @@ pipeline {
                           //input message: 'Security Gate Failed. Do you want to proceed?', submitter: 'admin'
                           error 'The security gate failed. Breaking the CI build.'
                         }
-                    }
+                    } */
                 }
             }
         }
