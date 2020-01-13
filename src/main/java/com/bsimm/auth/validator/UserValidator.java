@@ -9,7 +9,7 @@ import org.springframework.validation.Validator;
 import com.bsimm.auth.model.User;
 import com.bsimm.auth.service.UserService;
 
-//this is a pre-push test 7
+//this is a pre-push test 8
 @Component
 public class UserValidator implements Validator {
     @Autowired
