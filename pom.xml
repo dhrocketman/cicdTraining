@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>auth</artifactId>
 	<name>auth</name>
-	<description>auth</description>
+	<description>auth project</description>
 	<packaging>war</packaging>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
