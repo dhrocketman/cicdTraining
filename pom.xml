@@ -64,11 +64,11 @@
 
 		<!-- https://mvnrepository.com/artifact/org.apache.struts/struts2-core -->
 		<!-- Dependency added to demonstrate the vulnerable 3rd party library, which is no more in use in the code.-->
-		<dependency>
+	<!--	<dependency>
 			<groupId>org.apache.struts</groupId>
 			<artifactId>struts2-core</artifactId>
 			<version>2.3.19</version>
-		</dependency>
+		</dependency> -->
 		
 		<!-- testing pre-commit second time -->
 
