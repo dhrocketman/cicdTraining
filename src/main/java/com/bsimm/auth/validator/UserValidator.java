@@ -9,6 +9,7 @@ import org.springframework.validation.Validator;
 import com.bsimm.auth.model.User;
 import com.bsimm.auth.service.UserService;
 
+//this is a pre-push test 8 FIX ME fix me please FIX me
 @Component
 public class UserValidator implements Validator {
     @Autowired
@@ -35,7 +36,7 @@ public class UserValidator implements Validator {
         if (user.getPassword().length() < 8 || user.getPassword().length() > 32) {
             errors.rejectValue("password", "Size.userForm.password");
         }
-
+//FIX ME fix ME
         if (!user.getPasswordConfirm().equals(user.getPassword())) {
             errors.rejectValue("passwordConfirm", "Diff.userForm.passwordConfirm");
         }

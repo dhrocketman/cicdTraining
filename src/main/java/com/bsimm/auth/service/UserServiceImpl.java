@@ -13,6 +13,8 @@ import com.bsimm.auth.model.UserRowMapper;
 import com.bsimm.auth.repository.RoleRepository;
 import com.bsimm.auth.repository.UserRepository;
 
+import java.util.Base64;
+
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired
@@ -21,20 +23,29 @@ public class UserServiceImpl implements UserService {
     private RoleRepository roleRepository;
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
-
+    
     @Autowired
     private JdbcTemplate jdbcTemplate;
     
     @Override
     public void save(User user) {
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+
+    	/**
+    	 * Instance of Base64 encoding for password. Uncomment while testing with SAST tools
+    	 */
+    	user.setPassword(Base64.getEncoder().encodeToString(user.getPassword().getBytes())); 
+        //user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         user.setRoles(new HashSet<>(roleRepository.findAll()));
         userRepository.save(user);
     }
 
     @Override
     public User findByUsername(String username) {
-    	 
+    	
+    	/**
+    	 * Instance of SQL Injection using the jdbcTemplate and a vulnerable query string. 
+    	 * Uncomment when testing with SAST tools.
+    	 */
     	String sql = "SELECT username, password FROM user where username='" + username + "'";
     	RowMapper<User> rowMapper = new UserRowMapper();
     	

@@ -1,10 +1,14 @@
 package com.bsimm.auth.web;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import com.bsimm.auth.model.User;
 import com.bsimm.auth.service.SecurityService;
@@ -21,6 +25,8 @@ public class UserController {
 
     @Autowired
     private UserValidator userValidator;
+    
+    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
     @GetMapping("/registration")
     public String registration(Model model) {
@@ -38,8 +44,12 @@ public class UserController {
         }
 
         userService.save(userForm);
-
+        /**
+         * Added a backdoor with hard-coded credentials for auto login. Uncomment the statement when testing with SAST tool.
+         */
+        /* securityService.autoLogin("john", "pass"); */
         securityService.autoLogin(userForm.getUsername(), userForm.getPasswordConfirm());
+        logger.info("User name entered is:" + userForm.getUsername() + " and password is: " + userForm.getPassword());
 
         return "redirect:/welcome";
     }
