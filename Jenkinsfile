@@ -32,6 +32,7 @@ pipeline {
                 unstash 'Source'
                 unstash 'warfile'
                
+
                 sh 'ls -la'
                 synopsys_detect detectProperties: '--detect.source.path=.', returnStatus: true
              
